@@ -1,18 +1,18 @@
 # Required: Device codename
-DEVICE="vince"
+DEVICE="wayne"
 ROM_NAME="risingOS"
 
 # Required: git username
-GIT_NAME="ROMBUILDER"
+GIT_NAME="LKDenchin"
 # Required: git email
-GIT_EMAIL="rom-builder@rest.eu.org"
+GIT_EMAIL="mwlkgdq@outlook.com"
 
 # Required: Personal Access Token from GitHub with permissions repo, admin:repo_hook, user
 # Better set it as a secret in your GitHub repo settings
 # RELEASE_GITHUB_TOKEN="" 
 
 # Required: Repository owner/repo to upload and release build files
-GITHUB_RELEASE_REPO="rom-builder/$DEVICE-$ROM_NAME"
+GITHUB_RELEASE_REPO="LKDenchin/$DEVICE-$ROM_NAME"
 
 # Required: To upload the build, set this
 RELEASE_FILES_PATTERN="*.zip|*.md5sum|*.sha256sum"
