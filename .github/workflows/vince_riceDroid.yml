@@ -49,7 +49,7 @@ jobs:
     needs: Repo_git
     steps:
       - name: Fetch clang
-        run: git clone --depth=1 https://gitlab.com/anandhan07/aosp-clang.git -b clang-15.0.3 prebuilts/clang/host/linux-x86/clang-r468909b || ( cd prebuilts/clang/host/linux-x86/clang-r468909b && git fetch && git pull )
+        run: git clone --depth=1 https://gitlab.com/anandhan07/aosp-clang.git -b 17 prebuilts/clang/host/linux-x86/clang-r468909b || ( cd prebuilts/clang/host/linux-x86/clang-r468909b && git fetch && git pull )
   
   FMRadio:
     runs-on: ubuntu-22.04
@@ -107,8 +107,8 @@ jobs:
         - name: Upload modules to release
           uses: svenstaro/upload-release-action@v2
           with:
-            repo_token: ${{ secrets.RELEASE_TOKEN }}
-            repo_name: rom-builder/Vince-RiceDroid
+            repo_token: ${{ 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 }}
+            repo_name: LKDenchin/RisingOS
             tag: ${{ steps.tag_code.outputs.TAG }}
             release_name: ${{ steps.tag_code.outputs.TAG }}
             file_glob: true
