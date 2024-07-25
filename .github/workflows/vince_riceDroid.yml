@@ -106,8 +106,8 @@ jobs:
         - name: Upload modules to release
           uses: svenstaro/upload-release-action@v2
           with:
-            repo_token: ${{ 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 }}
-            repo_name: rom-builder/Vince-RiceDroid
+            repo_token: ${{ secrets.RELEASE_TOKEN }}
+            repo_name: LKDenchin/RisingOS
             tag: ${{ steps.tag_code.outputs.TAG }}
             release_name: ${{ steps.tag_code.outputs.TAG }}
             file_glob: true
