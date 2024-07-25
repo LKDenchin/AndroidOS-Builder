@@ -79,13 +79,16 @@ jobs:
         
   Sync_source:
     runs-on: ubuntu-22.04
-    needs: Repo_git
     steps:
-      - name: Delete existing builds folders
-        run: rm -rf out/target/product/vince || echo "Doesn't exist"
-
-      - name: Sync source
-        run: repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags
+    - name: sync source
+      run: |
+        mkdir -p ~/bin
+        mkdir -p ~/android/pe
+        curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
+        export REPO_URL='https://mirrors.tuna.tsinghua.edu.cn/git/git-repo/'
+        export PATH=~/bin:$PATH
+        source ~/.bashrc
+        repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags
         
   Build_rom_vanilla:
     runs-on: ubuntu-22.04
