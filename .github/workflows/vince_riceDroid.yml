@@ -15,10 +15,11 @@ jobs:
         git config --global user.email "mwlkgdq@outlook.com"
         git config --global user.name "LKDenchin"
         git config --global pull.rebase true
-        export PATH=$PATH:/path/to/repo/bin  # 替换为 repo 工具安装的实际路径
-        sudo apt-get update -y && sudo apt-get install repo -y
-
-          
+        curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
+        export REPO_URL='https://mirrors.tuna.tsinghua.edu.cn/git/git-repo/'
+        export PATH=~/bin:$PATH
+        source ~/.bashrc
+        
   depends:
     runs-on: ubuntu-22.04
     steps:
@@ -69,14 +70,14 @@ jobs:
 
   Setup_source:
     runs-on: ubuntu-22.04
-    needs: [Repo_git]
+    needs: Repo_git
     steps:
       - name: Setup source
         run: repo init --depth=1 --no-repo-verify -u https://github.com/RisingTechOSS/android/ -b fourteen -g default,-mips,-darwin,-notdefault || echo "Already done"
         
   Sync_source:
     runs-on: ubuntu-22.04
-    needs: [Repo_git]
+    needs: Repo_git
     steps:
       - name: Delete existing builds folders
         run: rm -rf out/target/product/vince || echo "Doesn't exist"
