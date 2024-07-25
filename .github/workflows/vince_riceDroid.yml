@@ -81,9 +81,6 @@ jobs:
       - name: Delete existing builds folders
         run: rm -rf out/target/product/vince || echo "Doesn't exist"
         
-      - name: Sync source
-        run: repo sync -c --no-clone-bundle --force-remove-dirty --optimized-fetch --prune --force-sync -j8
-        
   Build_rom_vanilla:
     runs-on: ubuntu-22.04
     needs: [Sync_source, depends, Clang, Device_tree, Vendor_tree, Kernel_tree, FMRadio, Viper]
