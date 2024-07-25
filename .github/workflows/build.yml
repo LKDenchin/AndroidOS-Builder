@@ -33,7 +33,7 @@ concurrency:
 jobs:
   build:
     timeout-minutes: 2400
-    runs-on: ubuntu-lastest
+    runs-on: ubuntu-22.04
     environment: 
       name: Builder
     steps:
