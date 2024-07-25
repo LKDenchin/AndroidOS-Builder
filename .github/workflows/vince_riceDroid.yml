@@ -76,24 +76,27 @@ jobs:
         
   Sync_source:
     runs-on: ubuntu-22.04
-    needs: Setup_source
+    needs: [Repo_git]
     steps:
       - name: Delete existing builds folders
         run: rm -rf out/target/product/vince || echo "Doesn't exist"
+
+      - name: Sync source
+        run: repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags
         
   Build_rom_vanilla:
     runs-on: ubuntu-22.04
     needs: [Sync_source, depends, Clang, Device_tree, Vendor_tree, Kernel_tree, FMRadio, Viper]
     steps:
       - name: Build Vanilla
-        run: .build/envsetup.sh && lunch lineage_vince-user && mka bacon | tee log.txt
+        run: . build/envsetup.sh && lunch lineage_vince-user && mka bacon | tee log.txt
         
   Build_rom_gapps:
     runs-on: ubuntu-22.04
     needs: Build_rom_vanilla
     steps:
       - name: Build Gapps
-        run: .build/envsetup.sh && lunch lineage_vince-user && export WITH_GMS=true && mka bacon | tee log.txt
+        run: . build/envsetup.sh && lunch lineage_vince-user && export WITH_GMS=true && mka bacon | tee log.txt
         
   Release:
     runs-on: ubuntu-22.04
