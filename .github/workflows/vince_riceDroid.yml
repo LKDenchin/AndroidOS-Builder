@@ -18,7 +18,12 @@ jobs:
         mkdir -p ~/bin
         curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
         chmod a+x ~/bin/repo
+        export PATH=~/bin:$PATH
 
+    - name: Set swap to 15G
+      uses: pierotofy/set-swap-space@master
+      with:
+        swap-size-gb: 20
         
   depends:
     runs-on: ubuntu-22.04
