@@ -75,19 +75,12 @@ jobs:
     steps:
       - name: Setup source
         run: repo init --depth=1 --no-repo-verify -u https://github.com/RisingTechOSS/android/ -b fourteen -g default,-mips,-darwin,-notdefault || echo "Already done"
-        
-  Sync_source:
-   runs-on: ubuntu-22.04
-   needs: Repo_git
-   steps:
-     - name: Sync source
-       run: repo init -u https://raw.githubusercontent.com/LKDenchin/local_manifest/wayne-risingOS/local_manifest.xml
-            repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags
+             repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags     
 
         
   Build_rom_vanilla:
     runs-on: ubuntu-22.04
-    needs: [Sync_source, depends, Clang, Device_tree, Vendor_tree, Kernel_tree, FMRadio, Viper]
+    needs: [Setup_source, depends, Clang, Device_tree, Vendor_tree, Kernel_tree, FMRadio, Viper]
     steps:
       - name: Build Vanilla
         run: . build/envsetup.sh && lunch lineage_vince-user && mka bacon | tee log.txt
