@@ -16,11 +16,9 @@ jobs:
         git config --global user.name "LKDenchin"
         git config --global pull.rebase true
         mkdir -p ~/bin
-        mkdir -p ~/android/pe
         curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
-        export REPO_URL='https://mirrors.tuna.tsinghua.edu.cn/git/git-repo/'
-        export PATH=~/bin:$PATH
-        source ~/.bashrc
+        chmod a+x ~/bin/repo
+
         
   depends:
     runs-on: ubuntu-22.04
@@ -79,16 +77,10 @@ jobs:
         
   Sync_source:
     runs-on: ubuntu-22.04
+    needs: Repo_git
     steps:
     - name: sync source
       run: |
-        mkdir -p ~/bin
-        mkdir -p ~/android/pe
-        curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
-        export REPO_URL='https://mirrors.tuna.tsinghua.edu.cn/git/git-repo/'
-        export PATH=~/bin:$PATH
-        source ~/.bashrc
-        sudo chmod +x /home/runner/bin/repo
         repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags
         
   Build_rom_vanilla:
