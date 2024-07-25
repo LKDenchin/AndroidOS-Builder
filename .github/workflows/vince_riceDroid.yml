@@ -8,7 +8,7 @@ concurrency:
 
 jobs:
   Repo_git:
-    runs-on: self-hosted
+    runs-on: ubuntu-22.04
     steps:
       - name: Setup git and install repo
         run: |
@@ -18,62 +18,62 @@ jobs:
           sudo apt-get update -y && sudo apt-get install repo -y
           
   depends:
-    runs-on: self-hosted
+    runs-on: ubuntu-22.04
     steps:
       - name: Install requirerd dependencies
         run: sudo apt-get install git-core gnupg flex bison build-essential zip curl zlib1g-dev libc6-dev-i386 libncurses5 lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z1-dev libgl1-mesa-dev libxml2-utils xsltproc unzip openssl libssl-dev fontconfig -y
         
   Device_tree:
-    runs-on: self-hosted
+    runs-on: ubuntu-22.04
     needs: Repo_git
     steps:
       - name: Clone Device Tree
         run: git clone https://github.com/LKDenchin/device_xiaomi_wayne-common -b 13 device/xiaomi/vince || ( cd device/xiaomi/vince && git fetch && git pull )
         
   Vendor_tree:
-    runs-on: self-hosted
+    runs-on: ubuntu-22.04
     needs: Repo_git
     steps:
       - name: Clone Vendor Tree
         run: git clone https://github.com/LKDenchin/vendor_xiaomi_wayne-common -b 13 vendor/xiaomi/vince || ( cd vendor/xiaomi/vince && git fetch && git pull )
       
   Kernel_tree:
-    runs-on: self-hosted
+    runs-on: ubuntu-22.04
     needs: Repo_git
     steps:
       - name: Clone Kernel Tree
         run: git clone https://github.com/LKDenchin/scarlet_sdm660 -b LKDenchin-v10-ksu kernel/xiaomi/vince || ( cd kernel/xiaomi/vince && git fetch && git pull )
       
   Clang:
-    runs-on: self-hosted
+    runs-on: ubuntu-22.04
     needs: Repo_git
     steps:
       - name: Fetch clang
         run: git clone --depth=1 https://gitlab.com/anandhan07/aosp-clang.git -b clang-15.0.3 prebuilts/clang/host/linux-x86/clang-r468909b || ( cd prebuilts/clang/host/linux-x86/clang-r468909b && git fetch && git pull )
   
   FMRadio:
-    runs-on: self-hosted
+    runs-on: ubuntu-22.04
     needs: Repo_git
     steps:
       - name: Fetch Revamped FM Radio
         run: git clone --depth=1 https://github.com/iusmac/RevampedFMRadio -b qcom packages/apps/RevampedFMRadio || (cd packages/apps/RevampedFMRadio && git fetch && git pull)   
   
   Viper:
-    runs-on: self-hosted
+    runs-on: ubuntu-22.04
     needs: Repo_git
     steps:
       - name: Fetch ViperFX
         run: git clone --depth=1 https://gitlab.com/anandhan07/packages_apps_ViPER4AndroidFX.git -b master packages/apps/ViPER4AndroidFX || (cd packages/apps/ViPER4AndroidFX && git fetch && git pull)
 
   Setup_source:
-    runs-on: self-hosted
+    runs-on: ubuntu-22.04
     needs: [Repo_git]
     steps:
       - name: Setup source
         run: repo init --depth=1 --no-repo-verify -u https://github.com/RisingTechOSS/android/ -b fourteen -g default,-mips,-darwin,-notdefault || echo "Already done"
         
   Sync_source:
-    runs-on: self-hosted
+    runs-on: ubuntu-22.04
     needs: Setup_source
     steps:
       - name: Delete existing builds folders
@@ -83,21 +83,21 @@ jobs:
         run: repo sync -c --no-clone-bundle --force-remove-dirty --optimized-fetch --prune --force-sync -j8
         
   Build_rom_vanilla:
-    runs-on: self-hosted
+    runs-on: ubuntu-22.04
     needs: [Sync_source, depends, Clang, Device_tree, Vendor_tree, Kernel_tree, FMRadio, Viper]
     steps:
       - name: Build Vanilla
         run: . build/envsetup.sh && lunch lineage_vince-user && mka bacon | tee log.txt
         
   Build_rom_gapps:
-    runs-on: self-hosted
+    runs-on: ubuntu-22.04
     needs: Build_rom_vanilla
     steps:
       - name: Build Gapps
         run: . build/envsetup.sh && lunch lineage_vince-user && export WITH_GMS=true && mka bacon | tee log.txt
         
   Release:
-    runs-on: self-hosted
+    runs-on: ubuntu-22.04
     needs: [Build_rom_vanilla, Build_rom_gapps]
     steps:
         - name: Prepare tag
