@@ -1,8 +1,8 @@
 {
   "repos": [
     {
-      "repo": "https://github.com/anandhan07/local_manifest.git",
-      "branch": "risingOS-13.0",
+      "repo": "https://github.com/LKDenchin/local_manifest.git",
+      "branch": "wayne-risingOS",
       "dir": ".repo/local_manifests",
       "before_sync": true
     }
