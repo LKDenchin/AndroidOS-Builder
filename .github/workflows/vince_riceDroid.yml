@@ -12,8 +12,8 @@ jobs:
     steps:
       - name: Setup git and install repo
         run: |
-          git config --global user.email "rom-builder@rest.eu.org"
-          git config --global user.name "ROM BUILDER"
+          git config --global user.email "mwlkgdq@outlook.com"
+          git config --global user.name "LKDenchin"
           git config --global pull.rebase true  
           sudo apt-get update -y && sudo apt-get install repo -y
           
@@ -28,21 +28,21 @@ jobs:
     needs: Repo_git
     steps:
       - name: Clone Device Tree
-        run: git clone https://github.com/anandhan07/android_device_xiaomi_vince -b ricedroid-13.0 device/xiaomi/vince || ( cd device/xiaomi/vince && git fetch && git pull )
+        run: git clone https://github.com/LKDenchin/device_xiaomi_wayne-common -b 13 device/xiaomi/vince || ( cd device/xiaomi/vince && git fetch && git pull )
         
   Vendor_tree:
     runs-on: self-hosted
     needs: Repo_git
     steps:
       - name: Clone Vendor Tree
-        run: git clone https://github.com/anandhan07/android_vendor_xiaomi_vince -b 13.0 vendor/xiaomi/vince || ( cd vendor/xiaomi/vince && git fetch && git pull )
+        run: git clone https://github.com/LKDenchin/vendor_xiaomi_wayne-common -b 13 vendor/xiaomi/vince || ( cd vendor/xiaomi/vince && git fetch && git pull )
       
   Kernel_tree:
     runs-on: self-hosted
     needs: Repo_git
     steps:
       - name: Clone Kernel Tree
-        run: git clone https://github.com/GhostMaster69-dev/android_kernel_xiaomi_vince -b master kernel/xiaomi/vince || ( cd kernel/xiaomi/vince && git fetch && git pull )
+        run: git clone https://github.com/LKDenchin/scarlet_sdm660 -b LKDenchin-v10-ksu kernel/xiaomi/vince || ( cd kernel/xiaomi/vince && git fetch && git pull )
       
   Clang:
     runs-on: self-hosted
@@ -70,7 +70,7 @@ jobs:
     needs: [Repo_git]
     steps:
       - name: Setup source
-        run: repo init --depth=1 --no-repo-verify -u https://github.com/ricedroidOSS/android -b thirteen -g default,-mips,-darwin,-notdefault || echo "Already done"
+        run: repo init --depth=1 --no-repo-verify -u https://github.com/RisingTechOSS/android/ -b fourteen -g default,-mips,-darwin,-notdefault || echo "Already done"
         
   Sync_source:
     runs-on: self-hosted
