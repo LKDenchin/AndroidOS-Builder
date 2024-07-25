@@ -80,18 +80,9 @@ jobs:
    runs-on: ubuntu-22.04
    needs: Repo_git
    steps:
-     - name: Install repo tool
-       run: |
-        mkdir -p ~/bin
-        curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
-        chmod a+x ~/bin/repo
-        export PATH=~/bin:$PATH
-
      - name: Sync source
-       run: |
-        ~/bin/repo forall -c "git reset --hard && git clean -fdx"
-        ~/bin/repo init -u https://raw.githubusercontent.com/LKDenchin/local_manifest/wayne-risingOS/local_manifest.xml
-        ~/bin/repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags
+       run: repo init -u https://raw.githubusercontent.com/LKDenchin/local_manifest/wayne-risingOS/local_manifest.xml
+            repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags
 
         
   Build_rom_vanilla:
