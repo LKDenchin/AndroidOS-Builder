@@ -1,4 +1,4 @@
-name: Vince RiceDroid old
+name: Wayne RisingOS
 on:
   workflow_dispatch
   
@@ -12,8 +12,8 @@ jobs:
     steps:
     - name: Setup git and install repo
       run: |
-        git config --global user.email "rom-builder@rest.eu.org"
-        git config --global user.name "ROM BUILDER"
+        git config --global user.email "mwlkgdq@outlook.com"
+        git config --global user.name "LKDenchin"
         git config --global pull.rebase true
         export PATH=$PATH:/path/to/repo/bin  # 替换为 repo 工具安装的实际路径
         sudo apt-get update -y && sudo apt-get install repo -y
@@ -106,7 +106,7 @@ jobs:
         - name: Upload modules to release
           uses: svenstaro/upload-release-action@v2
           with:
-            repo_token: ${{ secrets.RELEASE_TOKEN }}
+            repo_token: ${{ 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 }}
             repo_name: rom-builder/Vince-RiceDroid
             tag: ${{ steps.tag_code.outputs.TAG }}
             release_name: ${{ steps.tag_code.outputs.TAG }}
