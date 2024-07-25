@@ -15,6 +15,7 @@ jobs:
         git config --global user.email "mwlkgdq@outlook.com"
         git config --global user.name "LKDenchin"
         git config --global pull.rebase true
+        mkdir ~/bin/repo
         curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
         export REPO_URL='https://mirrors.tuna.tsinghua.edu.cn/git/git-repo/'
         export PATH=~/bin:$PATH
