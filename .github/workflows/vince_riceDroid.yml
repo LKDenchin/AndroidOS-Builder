@@ -10,12 +10,14 @@ jobs:
   Repo_git:
     runs-on: ubuntu-22.04
     steps:
-      - name: Setup git and install repo
-        run: |
-          git config --global user.email "rom-builder@rest.eu.org"
-          git config --global user.name "ROM BUILDER"
-          git config --global pull.rebase true  
-          sudo apt-get update -y && sudo apt-get install repo -y
+    - name: Setup git and install repo
+      run: |
+        git config --global user.email "rom-builder@rest.eu.org"
+        git config --global user.name "ROM BUILDER"
+        git config --global pull.rebase true
+        export PATH=$PATH:/path/to/repo/bin  # 替换为 repo 工具安装的实际路径
+        sudo apt-get update -y && sudo apt-get install repo -y
+
           
   depends:
     runs-on: ubuntu-22.04
