@@ -86,14 +86,14 @@ jobs:
     needs: [Sync_source, depends, Clang, Device_tree, Vendor_tree, Kernel_tree, FMRadio, Viper]
     steps:
       - name: Build Vanilla
-        run: . build/envsetup.sh && lunch lineage_vince-user && mka bacon | tee log.txt
+        run: .build/envsetup.sh && lunch lineage_vince-user && mka bacon | tee log.txt
         
   Build_rom_gapps:
     runs-on: ubuntu-22.04
     needs: Build_rom_vanilla
     steps:
       - name: Build Gapps
-        run: . build/envsetup.sh && lunch lineage_vince-user && export WITH_GMS=true && mka bacon | tee log.txt
+        run: .build/envsetup.sh && lunch lineage_vince-user && export WITH_GMS=true && mka bacon | tee log.txt
         
   Release:
     runs-on: ubuntu-22.04
