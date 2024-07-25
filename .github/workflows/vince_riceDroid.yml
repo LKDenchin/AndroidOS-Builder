@@ -15,10 +15,6 @@ jobs:
         git config --global user.email "mwlkgdq@outlook.com"
         git config --global user.name "LKDenchin"
         git config --global pull.rebase true
-        mkdir -p ~/bin
-        curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
-        chmod a+x ~/bin/repo
-        export PATH=~/bin:$PATH
 
     - name: Set swap to 20G
       uses: pierotofy/set-swap-space@master
@@ -86,6 +82,11 @@ jobs:
     steps:
     - name: sync source
       run: |
+        mkdir -p ~/bin
+        curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
+        chmod a+x ~/bin/repo
+        export PATH=~/bin:$PATH
+        cd ~/bin/repo
         ~/bin/repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags
         
   Build_rom_vanilla:
