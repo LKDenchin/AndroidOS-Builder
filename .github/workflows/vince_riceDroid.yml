@@ -20,7 +20,7 @@ jobs:
         chmod a+x ~/bin/repo
         export PATH=~/bin:$PATH
 
-    - name: Set swap to 15G
+    - name: Set swap to 20G
       uses: pierotofy/set-swap-space@master
       with:
         swap-size-gb: 20
@@ -86,7 +86,7 @@ jobs:
     steps:
     - name: sync source
       run: |
-        repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags
+        ~/bin/repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags
         
   Build_rom_vanilla:
     runs-on: ubuntu-22.04
