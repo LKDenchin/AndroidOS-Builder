@@ -88,6 +88,7 @@ jobs:
         export REPO_URL='https://mirrors.tuna.tsinghua.edu.cn/git/git-repo/'
         export PATH=~/bin:$PATH
         source ~/.bashrc
+        sudo chmod +x /home/runner/bin/repo
         repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags
         
   Build_rom_vanilla:
