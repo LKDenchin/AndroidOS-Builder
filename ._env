@@ -9,7 +9,7 @@ GIT_EMAIL="mwlkgdq@outlook.com"
 
 # Required: Personal Access Token from GitHub with permissions repo, admin:repo_hook, user
 # Better set it as a secret in your GitHub repo settings
-# RELEASE_GITHUB_TOKEN="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" 
+RELEASE_GITHUB_TOKEN="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" 
 
 # Required: Repository owner/repo to upload and release build files
 GITHUB_RELEASE_REPO="LKDenchin/$DEVICE-$ROM_NAME"
