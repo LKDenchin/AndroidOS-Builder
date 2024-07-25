@@ -30,7 +30,7 @@ on:
 
 jobs:
   control-vm:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:  
       - name: "Authenticate"
         id: 'auth'
