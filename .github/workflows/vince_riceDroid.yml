@@ -15,6 +15,11 @@ jobs:
         git config --global user.email "mwlkgdq@outlook.com"
         git config --global user.name "LKDenchin"
         git config --global pull.rebase true
+        mkdir -p ~/bin
+        curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
+        chmod a+x ~/bin/repo
+        export PATH=~/bin:$PATH
+        source ~/.bashrc
 
     - name: Set swap to 20G
       uses: pierotofy/set-swap-space@master
@@ -73,9 +78,10 @@ jobs:
     runs-on: ubuntu-22.04
     needs: Repo_git
     steps:
-      - name: Setup source
-        run: repo init --depth=1 --no-repo-verify -u https://github.com/RisingTechOSS/android/ -b fourteen -g default,-mips,-darwin,-notdefault || echo "Already done"
-             repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags     
+    - name: Setup source
+      run: |
+        repo init --depth=1 --no-repo-verify -u https://github.com/RisingTechOSS/android/ -b fourteen -g default,-mips,-darwin,-notdefault || echo "Already done"
+        repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags     
 
         
   Build_rom_vanilla:
