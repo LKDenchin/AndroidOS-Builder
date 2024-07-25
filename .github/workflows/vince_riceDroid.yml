@@ -77,17 +77,20 @@ jobs:
         run: repo init --depth=1 --no-repo-verify -u https://github.com/RisingTechOSS/android/ -b fourteen -g default,-mips,-darwin,-notdefault || echo "Already done"
         
   Sync_source:
-    runs-on: ubuntu-22.04
-    needs: Repo_git
-    steps:
-    - name: sync source
-      run: |
+   runs-on: ubuntu-22.04
+   needs: Repo_git
+   steps:
+     - name: Install repo tool
+       run: |
         mkdir -p ~/bin
         curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
         chmod a+x ~/bin/repo
         export PATH=~/bin:$PATH
-        cd ~/bin/repo
+
+     - name: Sync source
+       run: |
         ~/bin/repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags
+
         
   Build_rom_vanilla:
     runs-on: ubuntu-22.04
