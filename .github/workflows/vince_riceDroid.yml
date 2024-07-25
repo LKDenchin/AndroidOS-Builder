@@ -89,7 +89,7 @@ jobs:
 
      - name: Sync source
        run: |
-        ~/bin/repo init -u https://raw.githubusercontent.com/LKDenchin/local_manifest/wayne-risingOS/local_manifest.xml
+        ~/bin/repo init -u https://github.com/LKDenchin/local_manifest/blob/wayne-risingOS/local_manifest.xml
         ~/bin/repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags
 
         
